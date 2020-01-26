@@ -5,11 +5,11 @@ source "$PLUGIN_AVAILABLE_PATH/config/functions"
 APP="$1"; IMAGE="dokku/$APP"
 
 eval "$(config_export app "$APP")"
-wkthmltopdf="$WKHTMLTOPDF_REQUIRED"
+wkhtmltopdf="$WKHTMLTOPDF_REQUIRED"
 
 
-if [[ "$wkthmltopdf" == "true" ]] ; then
-echo "-----> Installing wkthmltopdf ..."
+if [[ "$wkhtmltopdf" == "true" ]] ; then
+echo "-----> Installing wkhtmltopdf ..."
 COMMAND=$(cat <<EOF
   echo "-----> install requirements"
 
@@ -17,7 +17,7 @@ COMMAND=$(cat <<EOF
   # Replace default sources for Aliyun China Mirrored Sources
   curl https://tuitu-buildpack.oss-cn-hangzhou.aliyuncs.com/sources.list -o /etc/apt/sources.list
   apt-get -y update
-  apt-get install -y wkthmltopdf
+  apt-get install -y wkhtmltopdf
 
   sleep 1 # wait so that docker run has not exited before docker attach
 EOF
