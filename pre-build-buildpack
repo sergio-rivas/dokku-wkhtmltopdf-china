@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
+source "$PLUGIN_AVAILABLE_PATH/config/functions"
+
+APP="$1"; IMAGE="dokku/$APP"
+
+eval "$(config_export app "$APP")"
+wkthmltopdf="$WKHTMLTOPDF_REQUIRED"
+
+
+if [[ "$wkthmltopdf" == "true" ]] ; then
+echo "-----> Installing wkthmltopdf ..."
+COMMAND=$(cat <<EOF
+  echo "-----> install requirements"
+
+  export DEBIAN_FRONTEND=noninteractive
+  # Replace default sources for Aliyun China Mirrored Sources
+  curl https://tuitu-buildpack.oss-cn-hangzhou.aliyuncs.com/sources.list -o /etc/apt/sources.list
+  apt-get -y update
+  apt-get install -y wkthmltopdf
+
+  sleep 1 # wait so that docker run has not exited before docker attach
+EOF
+)
+id=$(docker run -d $IMAGE /bin/bash -e -c "$COMMAND")
+#enable logs
+docker attach $id
+test $(docker wait $id) -eq 0
+docker commit $id $IMAGE > /dev/null
+fi

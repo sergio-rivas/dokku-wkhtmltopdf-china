@@ -1,0 +1,38 @@
+[[ " help wkhtmltopdf-china:help " == *" $1 "* ]] || exit "$DOKKU_NOT_IMPLEMENTED_EXIT"
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
+
+case "$1" in
+
+  help | wkhtmltopdf-china:help)
+    help_content_func() {
+      #shellcheck disable=SC2034
+      declare desc="return wkhtmltopdf-china plugin help content"
+      cat<<help_content
+    wkhtmltopdf-china:install <app>, Sets up app for wkhtmltopdf dependency installation on future deployments.
+    wkhtmltopdf-china:uninstall <app>, Removes wkhtmltopdf dependency installation on future deployments.
+
+    wkhtmltopdf-china:help, Display wkhtmltopdf-china help
+help_content
+    }
+
+    if [[ $1 = "wkhtmltopdf-china:help" ]]; then
+      echo -e 'Usage: dokku wkhtmltopdf-china[:COMMAND]'
+      echo ''
+      echo 'Plugin for sourcing docsplit dependency from China source.'
+      echo ''
+      echo 'Additional commands:'
+      help_content_func | sort | column -c2 -t -s,
+    elif [[ $(ps -o command= $PPID) == *"--all"* ]]; then
+      help_content_func
+    else
+      cat<<help_desc
+    wkhtmltopdf-china, Plugin for sourcing docsplit dependency from China source
+help_desc
+    fi
+    ;;
+
+  *)
+    exit "$DOKKU_NOT_IMPLEMENTED_EXIT"
+    ;;
+
+esac

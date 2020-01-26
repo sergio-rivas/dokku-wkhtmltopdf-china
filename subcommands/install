@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+source "$PLUGIN_AVAILABLE_PATH/config/functions"
+
+APP="$2"
+
+config_set --no-restart "$APP" "WKHTMLTOPDF_REQUIRED=true"
