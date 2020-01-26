@@ -1,26 +1,26 @@
-# dokku-docsplit-china
+# dokku-wkhtmltopdf-china
 
 **NOTE: This Dokku Plugin is only relavent for CHINA users**
 
-dokku-docsplit-china is an awesome plugin for [dokku][dokku] that properly installs the Docsplit into the docker instance.
-This plugin should fix the problems you may have when downloading docsplit with ```apt-get``` due to server hosting in China.
+dokku-wkhtmltopdf-china is an awesome plugin for [dokku][dokku] that properly installs the wkhtmltopdf into the docker instance.
+This plugin should fix the problems you may have when downloading wkhtmltopdf with ```apt-get``` due to server hosting in China.
 
 ## Installation
 
 On your dokku server:
 ```
 # On 0.3.x
-git clone https://github.com/sergio-rivas/dokku-docsplit-china /var/lib/dokku/plugins/dokku-docsplit
+git clone https://github.com/sergio-rivas/dokku-wkhtmltopdf-china /var/lib/dokku/plugins/dokku-wkhtmltopdf
 
 # On 0.4.x
-dokku plugin:install https://github.com/sergio-rivas/dokku-docsplit-china.git docsplit
+dokku plugin:install https://github.com/sergio-rivas/dokku-wkhtmltopdf-china.git wkhtmltopdf
 ```
 
 The following commands now exist:
 
 ```
-dokku docsplit-china:install <app_name> # Sets up Docsplit requirement for next deployment
-dokku docsplit-china:uninstall <app_name> # Removes Docsplit requirement for next deployment
+dokku wkhtmltopdf-china:install <app_name> # Sets up wkhtmltopdf requirement for next deployment
+dokku wkhtmltopdf-china:uninstall <app_name> # Removes wkhtmltopdf requirement for next deployment
 ```
 
 ## License
